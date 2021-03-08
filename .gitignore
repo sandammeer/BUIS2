@@ -130,3 +130,5 @@ dmypy.json
 /Ecosense/
 
 .DS_Store
+
+.vscode/launch.json
