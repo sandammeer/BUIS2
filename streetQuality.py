@@ -39,10 +39,3 @@ def get_sensor_names():
     # column names from gyro_x_01 to gyro_z_24
     gyro_names = [ ["gyro_" + axis + "_" + n for n in numbers] for axis in ["x", "y", "z"] ]
     return gyro_names
-
-if __name__ == "__main__":
-    df = pd.read_csv("Ecosense/bikeride-gps-0aad2d83b1bef753c6223006240d4b730ffc755e.csv", sep=";")
-    df = df.stack().str.replace(',', '.').unstack()
-
-    value = street_quality_from_data_frame(df)
-    print(value)
