@@ -22,12 +22,13 @@ def street_quality_from_data_frame(df):
     :return: street quality object
     '''
     # cast values to float
-    sensor_df = df[get_sensor_names()].astype(float)
+    names = get_sensor_names()
+    sensor_df = df[names].astype(float)
     #sum gyro values in row
     gyro_sums = [np.sum(row) for row in sensor_df.values]
-
-    return StreetQuality(mean = np.mean(gyro_sums),
-                         distances = [abs(x - mean) for x in gyro_sums])
+    mean = np.mean(gyro_sums)
+    distances = [abs(x - mean) for x in gyro_sums]
+    return StreetQuality(mean = mean, distances = distances)
 
 def get_sensor_names():
     '''
@@ -37,5 +38,5 @@ def get_sensor_names():
     #array 1 to 24 wih leading zeros
     numbers = ["".join(["0", str(number)]) if number <10 else str(number) for number in np.arange(24) + 1]
     # column names from gyro_x_01 to gyro_z_24
-    gyro_names = [ ["gyro_" + axis + "_" + n for n in numbers] for axis in ["x", "y", "z"] ]
+    gyro_names = [ ["gyro_" + axis + "_" + n for n in numbers] for axis in ["x", "y", "z"] ][0]
     return gyro_names
