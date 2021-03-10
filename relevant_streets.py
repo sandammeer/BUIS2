@@ -36,7 +36,8 @@ def uni_street_in_route(path):
 
         if result is not None:
             result_address = result.raw['address']
-            if result_address["country"] is "Germany":
+            print(result_address)
+            if result_address["country"] == "Deutschland":
                 result_road = result_address['road']
                 print(result_road)
                 if result_road in uni_streets:
@@ -57,6 +58,6 @@ def search_all_routes():
             return uni_routes
     return uni_routes
 
-print(search_all_routes())
-print(datetime.now())
+#print(search_all_routes())
+#print(datetime.now())
 #uni_street_in_route("Ecosense/bikeride-gps-2dde982a4f5acf1a4c06c5d004cefc75cfeed173.csv")

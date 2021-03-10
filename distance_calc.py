@@ -14,10 +14,13 @@ def calc_distance(route):
     co1 = ""
     co2 = ""
     for index, row in route.iterrows():
+        lat = str(row['latitude']).replace(",", ".")
+        lon = str(row['longitude']).replace(",", ".")
+
         if co1 == "":
-            co1 = str(row['latitude']) + " " + str(row['longitude']) #critical: the order has to be lat, lon
+            co1 = lat + ", " + lon #critical: the order has to be lat, lon
         else:
-            co2 = str(row['latitude']) + " " + str(row['longitude'])
+            co2 = lat + ", " + lon
             dist = dist + distance.distance(Point(co1), Point(co2)).m
             co1 = co2
     return dist

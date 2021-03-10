@@ -1,5 +1,6 @@
 import glob
 import importlib
+import os
 from datetime import datetime
 import pandas as pd
 
@@ -17,10 +18,11 @@ def create_index_from_ecosensedata():
     start_time = datetime.now()
 
     for filename in glob.glob("Ecosense/*.csv"):
-        index_df = pd.read_csv("Index.csv")
-        if filename in index_df.values:
-            print("Skipping: ", filename)
-            continue
+        if os.path.exists('Index.csv'):
+            index_df = pd.read_csv("Index.csv")
+            if filename in index_df.values:
+                print("Skipping: ", filename)
+                continue
 
         if relevance_module.uni_street_in_route(filename):
             print("Relevant: ", filename)
