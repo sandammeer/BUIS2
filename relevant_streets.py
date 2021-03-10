@@ -4,11 +4,14 @@ import pandas as pd
 from geopy.geocoders import Nominatim
 from geopy import Point
 
+geolocator = Nominatim(user_agent="test_app")
+
 uni_routes = []
 uni_streets = ['Ammerländer Heerstraße', 'Uhlhornsweg', 'Haarenfeld', 'Schützenweg', 'Artillerieweg', 'Wechloyer Weg',
                'Quellenweg','Ofener Str.','Heiligengeistwall','Theaterwall','Carl-von-Ossietzky-Straße','Im Technologiepark',
                'Tuchtweg','Binsenstraße','Prinzessinweg','Drögen-Hasen-Weg','Grotepool','Küpkersweg','Pophankenweg','Gabelsbergerweg','Franz-Poppe-Straße','Westerstraße','Rummelweg','Zeughausstraße']
-geolocator = Nominatim(user_agent="test_app")
+
+
 def uni_street_in_route(path):
 
     data = pd.read_csv(path, sep=';')
