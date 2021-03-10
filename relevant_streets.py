@@ -39,11 +39,12 @@ def uni_street_in_route(path):
 
         if result is not None:
             result_address = result.raw['address']
-            if result_address["country"] == "Deutschland":
-                if "road" in result_address.keys()
-                    result_road = result_address['road']
-                    if result_road in uni_streets:
-                        return True
+            if "country" in result_address.keys():
+                if result_address["country"] == "Deutschland":
+                    if "road" in result_address.keys():
+                        result_road = result_address['road']
+                        if result_road in uni_streets:
+                            return True
 
     return False
 
