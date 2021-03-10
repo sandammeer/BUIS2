@@ -18,6 +18,7 @@ def create_index_from_ecosensedata():
     start_time = datetime.now()
 
     for filename in glob.glob("Ecosense/*.csv"):
+        print(filename)
         if os.path.exists('Index.csv'):
             index_df = pd.read_csv("Index.csv")
             if filename in index_df.values:
@@ -26,7 +27,6 @@ def create_index_from_ecosensedata():
 
         if relevance_module.uni_street_in_route(filename):
             print("Relevant: ", filename)
-
             df = reader_module.dataframe_from_csv_file(filename)
             quality = quality_module.street_quality_from_data_frame(df)
             speed = speed_module.calc_speed(df)

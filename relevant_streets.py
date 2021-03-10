@@ -14,7 +14,6 @@ def uni_street_in_route(path):
     data = pd.read_csv(path, sep=';')
     values = data.values
 
-
     for index, row in data.iterrows():
         if index % 10 == 1:
             row = data.iloc[len(values) - index]
@@ -36,10 +35,8 @@ def uni_street_in_route(path):
 
         if result is not None:
             result_address = result.raw['address']
-            print(result_address)
             if result_address["country"] == "Deutschland":
                 result_road = result_address['road']
-                print(result_road)
                 if result_road in uni_streets:
                     return True
 
