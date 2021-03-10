@@ -45,7 +45,11 @@ def create_index_from_ecosensedata():
 
 def create_ranking_from_index():
     df_index = pd.read_csv("Index.csv", index_col=0)
+    df_index["Filename"] = df_index["Filename"].str.replace("\\", "/")
+
     df_relevant = df_index[df_index["Relevant"] == True]
+    df_relevant = df_relevant[df_relevant["Distance"] > 800.0]
+    df_relevant = df_relevant[df_relevant["Distance"] < 1000000.0]
     df_relevant = df_relevant.round(0)
 
     df_sorted_by_street = df_relevant.sort_values(by=["Mean_Street_Quality", "Speed"], ascending=(True, False))  
@@ -59,13 +63,6 @@ def get_best_3_routes():
 def get_worst_3_routes():
     df_ranking = pd.read_csv("Ranking.csv", index_col=0)
     return df_ranking.tail(3)
-
-def visualize_ranking(best, worst):
-    best_filenames = best["Filename"]
-    worst_filenames = worst["Filename"]
-
-
-    return
 
 def combine_index():
     names = ["Index_Rafael.csv", "Index_Dennis.csv", "Index_Sandro.csv"]
@@ -83,4 +80,4 @@ if __name__ == "__main__":
     worst_routes = get_worst_3_routes()
 
     # combine_index()
-    visualize_ranking.visualize_ranking(best_routes, worst_routes)
+    visualizer_module.visualize_ranking(best_routes, worst_routes)
