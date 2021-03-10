@@ -10,7 +10,7 @@ def calc_distance(route):
     :param route: dataframe of one bicycle route
     :return: distance driven in the span of the one recorded route
     '''
-    dist = 0
+    dist = 0.0
     co1 = ""
     co2 = ""
     for index, row in route.iterrows():

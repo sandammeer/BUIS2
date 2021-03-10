@@ -23,17 +23,24 @@ def uni_street_in_route(path):
         else:
             continue
         if index >= len(values)/2:
-            print('durch', index, len(values))
             return False
-        co1 = str(row['latitude']) + ", " + str(row['longitude'])  # critical: the order has to be lat, lon
+        lat = str(row['latitude']).replace(",", ".")
+        lon = str(row['longitude']).replace(",", ".")
+        co1 = lat + ", " + lon  # critical: the order has to be lat, lon
 
         point = Point(co1)
-        result = geolocator.reverse(point)
-        result_address = result.raw['address']
-        result_road = result_address['road']
-        print(result_road)
-        if result_road in uni_streets:
-            return True
+        try:
+            result = geolocator.reverse(point)
+        except:
+            continue
+
+        if result is not None:
+            result_address = result.raw['address']
+            if result_address["country"] is "Germany":
+                result_road = result_address['road']
+                print(result_road)
+                if result_road in uni_streets:
+                    return True
 
     return False
 

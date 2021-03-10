@@ -6,4 +6,4 @@ def calc_speed(df):
     maximum = np.max(df['speed'])
     minimum = np.min(df['speed'])
 
-    return [avg,maximum,minimum]
+    return [avg, maximum, minimum]
