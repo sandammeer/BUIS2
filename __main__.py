@@ -12,6 +12,7 @@ speed_module = importlib.import_module("speed_calc")
 quality_module = importlib.import_module("streetQuality")
 writer_module = importlib.import_module("write_index")
 relevance_module = importlib.import_module("relevant_streets")
+visualizer_module = importlib.import_module("visualizer_module")
 
 
 def create_index_from_ecosensedata():
@@ -43,13 +44,43 @@ def create_index_from_ecosensedata():
 
 
 def create_ranking_from_index():
+    df_index = pd.read_csv("Index.csv", index_col=0)
+    df_relevant = df_index[df_index["Relevant"] == True]
+    df_relevant = df_relevant.round(0)
+
+    df_sorted_by_street = df_relevant.sort_values(by=["Mean_Street_Quality", "Speed"], ascending=(True, False))  
+    df_sorted_by_street.to_csv("Ranking.csv")
     return
 
-def visualize_ranking():
+def get_best_3_routes():
+    df_ranking = pd.read_csv("Ranking.csv", index_col=0)
+    return df_ranking.head(3)
+
+def get_worst_3_routes():
+    df_ranking = pd.read_csv("Ranking.csv", index_col=0)
+    return df_ranking.tail(3)
+
+def visualize_ranking(best, worst):
+    best_filenames = best["Filename"]
+    worst_filenames = worst["Filename"]
+
+
     return
 
+def combine_index():
+    names = ["Index_Rafael.csv", "Index_Dennis.csv", "Index_Sandro.csv"]
+    df = pd.DataFrame()
+
+    for name in names:
+        input_df = pd.read_csv(name, index_col=0)
+        df = df.append(input_df, ignore_index=True)
+    df.to_csv("Index.csv")
 
 if __name__ == "__main__":
-    create_index_from_ecosensedata()
+    # create_index_from_ecosensedata()
     create_ranking_from_index()
-    visualize_ranking()
+    best_routes = get_best_3_routes()
+    worst_routes = get_worst_3_routes()
+
+    # combine_index()
+    visualize_ranking.visualize_ranking(best_routes, worst_routes)
