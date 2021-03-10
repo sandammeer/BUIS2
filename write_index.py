@@ -35,12 +35,12 @@ def write_to_index(filename: str,
 
 # For Review
 
-# if __name__ == "__main__":
+ #if __name__ == "__main__":
     
-#     write_to_index(
-#         filename="test.csv",
-#         mean_street_quality=10.0,
-#         distance= 10.0,
-#         speed=10.0,
-#         relevant=True
-#     )
+ #    write_to_index(
+  #       filename="test.csv",
+   #      mean_street_quality=10.0,
+    #     distance= 10.0,
+     #    speed=10.0,
+      #   relevant=True
+     #)
