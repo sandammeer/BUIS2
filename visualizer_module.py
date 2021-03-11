@@ -1,3 +1,5 @@
+from idlelib import tooltip
+
 import folium as fm
 import pandas as pd
 import random
@@ -19,14 +21,15 @@ def visualize_ranking(best, worst):
             print("Failed to open: ", best)
             continue
 
-        lat_list =  [float(x.replace(",", ".")) for x in df['latitude'].values]
-        lon_list = [float(x.replace(",", ".")) for x in df['longitude'].values]
+        lat_list =  [float(x) for x in df['latitude'].values]
+        lon_list = [float(x) for x in df['longitude'].values]
 
         coordinates = []
         for i in range(len(lat_list)):
             coordinates.append((lat_list[i], lon_list[i]))
 
-        line = fm.PolyLine(coordinates, color=best_colors[index], weight=8, opacity=1)
+
+        line = fm.PolyLine(coordinates, color=best_colors[index], weight=7, opacity=1)
         line.add_to(map)
 
     for index, worst in enumerate(worst_filenames):
@@ -36,18 +39,24 @@ def visualize_ranking(best, worst):
             print("Failed to open: ", worst)
             continue
     
-        lat_list =  [float(x.replace(",", ".")) for x in df['latitude'].values]
-        lon_list = [float(x.replace(",", ".")) for x in df['longitude'].values]
+        lat_list =  [float(x) for x in df['latitude'].values]
+        lon_list = [float(x) for x in df['longitude'].values]
 
         coordinates = []
         for i in range(len(lat_list)):
             coordinates.append((lat_list[i], lon_list[i]))
-
+        df = pd.read_csv("Index.csv")
+        df = df[df['Filename'] == worst]
+        values = df.values
+        speed = str(round(values[0][4],2))
+        vibration = str(round(values[0][2],2))
+        distance = str(round(values[0][3],2))
         line = fm.PolyLine(coordinates,
                             color=worst_colors[index],
-                            weight=8, opacity=1)
+                            weight=7, opacity=1, popup="<i>vibration: "+vibration+ "<br/>speed: "+speed+"<br/>distance: "+ distance+"</i>")
         line.add_to(map)
 
+    fm.Marker([53.146867706791234, 8.18312897559883], popup="<i>Carl von Ossietzky Universität Oldenburg</i>", tooltip=tooltip).add_to(map)
     map.save("Map.html")
     
 

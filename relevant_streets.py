@@ -7,6 +7,7 @@ from geopy import Point
 geolocator = Nominatim(user_agent="test_app")
 
 uni_routes = []
+
 uni_streets = ['Ammerländer Heerstraße', 'Uhlhornsweg', 'Haarenfeld', 'Schützenweg', 'Artillerieweg', 'Wechloyer Weg',
                'Quellenweg','Ofener Str.','Heiligengeistwall','Theaterwall','Carl-von-Ossietzky-Straße','Im Technologiepark',
                'Tuchtweg','Binsenstraße','Prinzessinweg','Drögen-Hasen-Weg','Grotepool','Küpkersweg','Pophankenweg','Gabelsbergerweg',
